@@ -1,0 +1,39 @@
+<div class="width-thin mt-30">
+    <div class="col s12 mb-20">
+        <span class="left font-40">SMS Blasting</span>
+    </div>
+    <div class="col s12">
+        <form class="col s12" enctype="multipart/form-data" method="POST" action="#">
+            <div class="file-field input-field">
+                <div class="btn">
+                    <span>Upload file</span>
+                    <input type="file" name="fileContent">
+                </div>
+                <div class="file-path-wrapper">
+                    <input placeholder="Upload CSV File, format : Nama, No Handphone, Urusan Customer, Pesan" class="file-path validate" type="text" name="filePath">
+                </div>
+            </div>
+            <div class="col s12 center">
+                <label class="active" for="or">-- Atau --</label>
+            </div>
+            <div class="input-field col s12 m6 l6 ">
+                <i class="material-icons prefix">contact_phone</i>
+                <textarea id="phoneNumber" class="materialize-textarea" name="phoneNumber" placeholder="[ENTER] untuk mengirim lebih dari 1 nomor"></textarea>
+                <label for="phoneNumber">Nomor Handphone</label>
+            </div>
+            <div class="input-field col s12 ">
+                <i class="material-icons prefix">work</i>
+                <input id="perihal" type="text" class="validate" name="case" >
+                <label for="perihal">Urusan Customer</label>
+            </div>
+            <div class="input-field col s12">
+                <i class="material-icons prefix">mode_edit</i>
+                <textarea id="textarea1" class="materialize-textarea" name="message"></textarea>
+                <label for="textarea1">Pesan</label>
+            </div>
+            <div class="col s12">
+                <button class="waves-effect waves-light btn-large blue darken-4" name="submitBlasting" type="submit"><i class="material-icons right">send</i>Kirim</button>
+            </div>
+        </form>
+    </div>
+</div>

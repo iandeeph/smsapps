@@ -1,0 +1,32 @@
+<div class="width-thin mt-30">
+    <div class="col s12 mb-20">
+        <span class="left font-40">Kirim SMS</span>
+    </div>
+    <div class="col s12">
+        <form class="col s12" method="POST" action="#">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">account_circle</i>
+                <input id="customername" type="text" class="validate" name="name" required >
+                <label for="customername">Nama Costumer</label>
+            </div>
+            <div class="input-field col s12 m6 l6 ">
+                <i class="material-icons prefix">contact_phone</i>
+                <input id="icon_telephone" type="tel" class="validate" name="number" pattern="^0[0-9]{9,12}|^\(?\+62[0-9]{9,12}" required >
+                <label for="icon_telephone">Nomor Hanphone</label>
+            </div>
+            <div class="input-field col s12 ">
+                <i class="material-icons prefix">work</i>
+                <input id="perihal" type="text" class="validate" name="case" required >
+                <label for="perihal">Urusan Pelanggan</label>
+            </div>
+            <div class="input-field col s12">
+                <i class="material-icons prefix">mode_edit</i>
+                <textarea id="textarea1" class="materialize-textarea" length="160" name="message" required></textarea>
+                <label for="textarea1">Pesan</label>
+            </div>
+            <div class="col s12">
+                <button class="waves-effect waves-light btn-large blue darken-4" type="submit"><i class="material-icons right">send</i>Kirim</button>
+            </div>
+        </form>
+    </div>
+</div>
