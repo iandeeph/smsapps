@@ -5,15 +5,40 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var exphbs  = require('express-handlebars');
+var Sequelize = require('sequelize');
+var sequelize = new Sequelize('sms', 'root', 'c3rmat', {
+    dialect: "mysql", // or 'sqlite', 'postgres', 'mariadb'
+    port:    3306 // or 5432 (for postgres)
+});
+
+sequelize
+    .authenticate()
+    .then(function(err) {
+      console.log('Connection has been established successfully.');
+    }, function (err) {
+      console.log('Unable to connect to the database:', err);
+    });
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
-var login = require('./routes/login');
 
 var app = express();
 
 // view engine setup
-app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+app.engine('handlebars', exphbs({
+    defaultLayout: 'main',
+    helpers: {
+        parsePrivilege: function (privilege) {
+            var parse = "";
+            if (privilege == '1'){
+                parse = "Operator";
+            }else if (privilege == '2'){
+                parse = "Administrator"
+            }
+
+            return parse;
+        }
+    }
+}));
 app.set('view engine', 'handlebars');
 
 // uncomment after placing your favicon in /public
@@ -25,8 +50,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/users', users);
-app.use('/login', login);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

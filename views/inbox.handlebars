@@ -1,5 +1,74 @@
-<div class="width-thin mt-30">
+<div class="width-nav mt-30">
     <div class="col s12 mb-20">
         <span class="left font-40">SMS Masuk</span>
+    </div>
+    <div class="col s12 hide-on-med-and-down">
+        <table class="striped">
+            <thead>
+                <tr>
+                    <th width="10%" data-field="time">Tanggal</th>
+                    <th width="10%" data-field="sender">Pengirim</th>
+                    <th width="15%" data-field="case">Urusan Pelanggan</th>
+                    <th width="65%" data-field="message">Pesan</th>
+                    <th data-field="action"></th>
+                </tr>
+            </thead>
+            <tbody class="font-normal font-17">
+            {{#each inbox}}
+                <tr>
+                    <td class="break-word">
+                        {{ReceivingDateTime}}
+                    </td>
+                    <td>
+                        {{SenderNumber}} - {{customer.name}}
+                    </td>
+                    <td class="break-word">
+                        {{customer.hal}}
+                    </td>
+                    <td class="break-word">
+                        {{TextDecoded}}
+                    </td>
+                    <td class="valign-wrapper">
+                        <a class='dropdown-button btn-floating blue' href='#' data-activates='action'><i class="material-icons">menu</i></a>
+                        <ul id='action' class='dropdown-content black-text pdr-20'>
+                            <li><a href="https://crm.zoho.com/crm/GlobalSearch1.do?sModules=AllEntities&searchword={{SenderNumber}}">CRM</a></li>
+                            <li><a href="https://support.zoho.com/support/cermati/ShowHomePage.do#Cases/search/CurDep/{{SenderNumber}}">SUPPORT</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#!">Percakapan</a></li>
+                        </ul>
+                    </td>
+                </tr>
+            {{/each}}
+            <tbody>
+        </table>
+    </div>
+    <div class="col s12 hide-on-large-only">
+        <ul class="collection">
+            {{#each inbox}}
+                <li class="collection-item">
+                    <div class="col s12">
+                        <div class="col s12 mb-20 font-normal font-17">
+                            <a class='dropdown-button-right left btn-floating blue' href='#' data-activates='action1'><i class="material-icons">menu</i></a>
+                            <div class="collection-content">
+                                <span>{{ReceivingDateTime}}</span><br>
+                                <span>{{SenderNumber}} - {{customer.name}}</span><br>
+                                <span>{{customer.hal}}</span>
+                                <div class="divider"></div>
+                                <p>
+                                    {{TextDecoded}}
+                                </p>
+                            </div>
+
+                            <ul id='action1' class='dropdown-content black-text'>
+                                <li><a href="https://crm.zoho.com/crm/GlobalSearch1.do?sModules=AllEntities&searchword={{SenderNumber}}">CRM</a></li>
+                                <li><a href="https://support.zoho.com/support/cermati/ShowHomePage.do#Cases/search/CurDep/{{SenderNumber}}">SUPPORT</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#!">Percakapan</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            {{/each}}
+        </ul>
     </div>
 </div>

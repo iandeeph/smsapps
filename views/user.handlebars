@@ -1,0 +1,46 @@
+<div class="width-nav mt-30">
+    <div class="col s12 mb-20">
+        <span class="left font-40">User Management</span>
+    </div>
+    <div class="col s12">
+        <table class="striped responsive-table">
+            <thead>
+            <tr class="hide-on-small-only">
+                <th width="24%" data-field="time">Username</th>
+                <th width="24%" data-field="sender">Privilege</th>
+                <th width="24%" data-field="case">Nama</th>
+                <th width="24%" data-field="message">Password</th>
+                <th width="4%" data-field="action"></th>
+            </tr>
+            <tr class="hide-on-med-and-up">
+                <th data-field="time">Username</th><th data-field="sender">Privilege</th><th data-field="case">Nama</th><th data-field="message">Password</th><th data-field="action"></th>
+            </tr>
+            </thead>
+            <tbody class="font-17 font-normal">
+            {{#each user}}
+                <tr>
+                    <td>
+                        {{this.username}}
+                    </td>
+                    <td>
+                        {{parsePrivilege this.privilege}}
+                    </td>
+                    <td>
+                        {{this.name}}
+                    </td>
+                    <td>
+                        {{this.password}}
+                    </td>
+                    <td class="valign-wrapper">
+                        <a class='dropdown-button btn-floating blue' href='#' data-activates='action{{this.idUser}}'><i class="material-icons">menu</i></a>
+                        <ul id='action{{this.idUser}}' class='dropdown-content black-text'>
+                            <li><a id="deleteBtnUser{{this.idUser}}" href="#">Delete</a></li>
+                            <li><a id="editBtnUser{{this.idUser}}" href="#">Edit</a></li>
+                        </ul>
+                    </td>
+                </tr>
+            {{/each}}
+            <tbody>
+        </table>
+    </div>
+</div>

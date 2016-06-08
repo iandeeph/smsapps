@@ -207,6 +207,10 @@ main {
   .logo-wrapper{
     visibility: hidden;
   }
+  .width-wide {
+    margin: 0 auto;
+    width: 90%;
+  }
 }
 
 @media only screen and (min-width: 1220px) {
@@ -269,6 +273,22 @@ main {
 
 .side-menu:hover, .top-menu:hover{
   background-color: #dddddd;
+}
+
+.break-word{
+  word-wrap:break-word;
+}
+
+.collection .collection-item{
+    padding-left: 10px;
+}
+
+.collection-content{
+    margin-left: 50px;
+}
+
+.collection-item{
+    height: 200px;
 }
 
 /*FONT SIZE SETTING*/
