@@ -1,0 +1,51 @@
+<div class="width-nav mt-30">
+    <div class="col s12 mb-20">
+        <span class="left font-40">Log</span>
+    </div>
+    <div class="col s12">
+        <table class="striped responsive-table">
+            <thead>
+            <tr>
+                <th width="10%" data-field="time">Waktu</th>
+                <th width="05%" data-field="user">Pengguna</th>
+                <th width="10%" data-field="action">Aksi</th>
+                <th width="10%" data-field="number">Nomor Handphone</th>
+                <th width="10%" data-field="name">Nama Pelanggan</th>
+                <th width="15%" data-field="case">Urusan Pelanggan</th>
+                <th width="05%" data-field="id">ID Pesan</th>
+                <th width="35%" data-field="message">Isi Pesan</th>
+            </tr>
+            </thead>
+            <tbody class="font-normal font-17">
+            {{#each logs}}
+                <tr>
+                    <td class="break-word">
+                        {{date}}
+                    </td>
+                    <td>
+                        {{user}}
+                    </td>
+                    <td class="break-word">
+                        {{action}}
+                    </td>
+                    <td>
+                        {{phone}}
+                    </td>
+                    <td class="break-word">
+                        {{name}}
+                    </td>
+                    <td class="break-word">
+                        {{hal}}
+                    </td>
+                    <td>
+                        {{messageID}}
+                    </td>
+                    <td class="break-word">
+                        {{message}}
+                    </td>
+                </tr>
+            {{/each}}
+            <tbody>
+        </table>
+    </div>
+</div>

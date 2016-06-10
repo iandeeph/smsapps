@@ -1,0 +1,39 @@
+<div class="width-thin mt-30">
+    <div class="col s12 z-depth-1 mt-20">
+        <form class="col s12" method="POST" action="">
+            <div class="col s12 mb-20 mt-20">
+                <div class="col s12">
+                    <span class="left">{{nameNumber name number}}</span>
+                </div>
+                <div class="col s12">
+                    <span class="left">{{hal}}</span>
+                </div>
+            </div>
+            <div class="col s12 chat-wrapper">
+                <div class="divider mb-30"></div>
+                {{#each conversations}}
+                    <div class="col s7 card-panel {{converstionOwner tableown}}">
+                        <div class="col s12 mb-10 font-normal">
+                            <span class='blue-grey-text text-lighten-5'>
+                                Date : {{time}}
+                            </span>
+                                <br/>
+                            <span class="white-text break-word mb-10">
+                                {{messages}}
+                            </span>
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
+            <div class="col s12">
+                <div class="divider"></div>
+                <div class="input-field col s12">
+                    <textarea placeholder="Balas.." id="textarea1" class="materialize-textarea" length="160" name="message" required></textarea>
+                </div>
+                <div class="input-field col s12 mb-30">
+                    <button class="btn-flat white grey-text bordered waves-effect waves-light right" type="submit" name="submit"><i class="material-icons right">send</i>Balas</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

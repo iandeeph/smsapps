@@ -7,6 +7,11 @@ $(document).ready(function() {
     });
     $('.modal-trigger').leanModal();
 
+    var chatElem = $('.chat-wrapper');
+    if (chatElem.length > 0) {
+        chatElem.animate({scrollTop: chatElem[0].scrollHeight}, 1000);
+    }
+
     $('.dropdown-button-right').dropdown({
             inDuration: 300,
             outDuration: 225,

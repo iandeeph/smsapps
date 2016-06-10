@@ -1,8 +1,20 @@
 <div class="width-thin mt-30">
-    <div class="col s12 mb-20">
-        <span class="left font-40">Login</span>
-        {{#each login}}
-
-        {{/each}}
+    <div class="col s12 mb-20 center">
+        <span class="font-40">Login</span>
+    </div>
+    <div class="col s12">
+        <form class="col offset-l2 s12 m12 l8" method="POST" action="">
+            <div class="input-field col s12">
+                <input id="username" type="text" class="validate" name="username"required>
+                <label for="username">Username</label>
+            </div>
+            <div class="input-field col s12">
+                <input id="password" type="password" class="validate" name="password" required>
+                <label for="password">Password</label>
+            </div>
+            <div class="input-field col s12">
+                <button class="btn-flat white grey-text waves-effect waves-light right bordered" type="submit" name="submit">login<i class="material-icons right">send</i></button>
+            </div>
+        </form>
     </div>
 </div>

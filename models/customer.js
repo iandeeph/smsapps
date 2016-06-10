@@ -34,6 +34,9 @@ module.exports = function(sequelize, DataTypes) {
                     customer.hasMany(models.sentitems, {
                         foreignKey: "DestinationNumber"
                     });
+                    customer.hasMany(models.outbox, {
+                        foreignKey: "DestinationNumber"
+                    });
                 }
             },
             freezeTableName: true,

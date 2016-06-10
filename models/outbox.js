@@ -1,7 +1,7 @@
 "use strict";
 
 module.exports = function(sequelize, DataTypes) {
-    var sentitems = sequelize.define("sentitems", {
+    var outbox = sequelize.define("outbox", {
             ID: {
                 type: DataTypes.INTEGER(10).UNSIGNED,
                 autoIncrement: true,
@@ -21,33 +21,31 @@ module.exports = function(sequelize, DataTypes) {
                 type: DataTypes.TEXT,
                 notNull: true
             },
-            status: {
-                type: DataTypes.ENUM('SendingOK','SendingOKNoReport','SendingError','DeliveryOK','DeliveryFailed','DeliveryPending','DeliveryUnknown','Error'),
-                notNull: true
+            MultiPart: {
+                type: DataTypes.ENUM('false','true')
             },
             CreatorID: {
                 type: DataTypes.TEXT,
                 notNull: true
-            },
-            sentMessages: {
-                type: DataTypes.VIRTUAL
             }
         },
         {
             classMethods: {
                 associate: function(models) {
-                    sentitems.belongsTo(models.customer, {
+                    outbox.hasMany(models.outbox_multipart, {
+                        foreignKey: "ID"
+                    });
+                    outbox.belongsTo(models.customer, {
                         foreignKey: "DestinationNumber",
-                        targetKey: "phone",
-                        onDelete: "CASCADE"
+                        targetKey: "phone"
                     });
                 }
             },
             freezeTableName: true,
             createdAt: false,
             timestamps: false,
-            tableName:'sentitems'
+            tableName:'outbox'
         });
 
-    return sentitems;
+    return outbox;
 };

@@ -20,7 +20,6 @@ sequelize
     });
 
 var routes = require('./routes/index');
-
 var app = express();
 
 // view engine setup
@@ -36,6 +35,26 @@ app.engine('handlebars', exphbs({
             }
 
             return parse;
+        },
+        converstionOwner: function (owner) {
+            var pos = "";
+            if (owner == 'inbox'){
+                pos = "grey left";
+            }else if (owner == 'sentitems'){
+                pos = "grey right darken-1"
+            }
+
+            return pos;
+        },
+        nameNumber: function (name, number) {
+            var joinName = "";
+            if(name !== null) {
+                joinName = "\""+ name +"\" - "+ number +"";
+            }else{
+                joinName = number;
+            }
+
+            return joinName;
         }
     }
 }));
@@ -48,6 +67,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+app.param('id', function (req, res, next, id) {
+    req.params = {};
+    req.params.id = id;
+    return next();
+});
 
 app.use('/', routes);
 
