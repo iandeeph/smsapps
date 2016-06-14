@@ -1,6 +1,6 @@
 var express = require('express');
 var path = require('path');
-var favicon = require('serve-favicon');
+//var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
@@ -8,6 +8,7 @@ var exphbs  = require('express-handlebars');
 var Sequelize = require('sequelize');
 var sequelize = new Sequelize('sms', 'root', 'c3rmat', {
     dialect: "mysql", // or 'sqlite', 'postgres', 'mariadb'
+    multipleStatements: true,
     port:    3306 // or 5432 (for postgres)
 });
 
@@ -48,13 +49,22 @@ app.engine('handlebars', exphbs({
         },
         nameNumber: function (name, number) {
             var joinName = "";
-            if(name !== null) {
+            if(name) {
                 joinName = "\""+ name +"\" - "+ number +"";
             }else{
                 joinName = number;
             }
 
             return joinName;
+        },
+        joinTextOutbox: function(textOutbox, textOutboxMultipart) {
+            var joinText = "";
+            if(textOutboxMultipart) {
+                joinText = textOutbox + "" + textOutboxMultipart;
+            }else{
+                joinText = textOutbox;
+            }
+            return joinText;
         }
     }
 }));

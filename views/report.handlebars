@@ -1,0 +1,183 @@
+<div class="container">
+    <div class="center col s12 font-40 mb-20">
+        Customer Service Report
+    </div>
+</div>
+<div class="row">
+    <div class="col s12">
+        <ul class="tabs">
+            <li class="tab col s6"><a class="black-text" href="#dailyTab">Laporan Harian</a></li>
+            <li class="tab col s6"><a class="black-text" href="#overallTab">Laporan Keseluruhan</a></li>
+        </ul>
+    </div>
+    <!--perhari-->
+    <div id="dailyTab" class="col s12">
+        <div class="col s12 font-20 mt-10">
+            Total Kirim SMS Harian
+        </div>
+        <div class="col s12 m6 l3 font-20 mt-10 mb-10">
+            <label for="reportDay">Tanggal</label>
+            <input id="reportDay" type="date" class="datepicker">
+        </div>
+        <div class="col s12 chart-report" id="daily" ></div>
+    </div>
+    
+    <!--perbulan-->
+    <div id="overallTab" class="col s12">
+        <div class="col s12 font-20 mt-10 mb-20">
+            Total Kirim SMS
+        </div>
+        <div class="col s12 chart-report" id="overall" ></div>
+    </div>
+</div>
+<div class="container">
+    
+</div>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript" src="/javascripts/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="/javascripts/jquery.flot.min.js"></script>
+<script type="text/javascript" src="/javascripts/jquery.flot.time.min.js"></script>
+<script type="text/javascript" src="/javascripts/jquery.flot.tooltip.min.js"></script>
+<script type="text/javascript" src="/javascripts/jquery.flot.navigate.min.js"></script>
+<script type="text/javascript" src="/javascripts/jquery.flot.resize.min.js"></script>
+<script type="text/javascript" src="/javascripts/jquery.flot.valuelabels.js"></script>
+<script type="text/javascript">
+    var daily = '{{{daily}}}';
+    var overall = '{{{overall}}}';
+    var chartDaily = JSON.parse(daily);
+    var chartOverall = JSON.parse(overall);
+    var dailyElem = $("#daily");
+    var overallElem = $("#overall");
+
+    var dailyplots = [];
+    var overallplots = [];
+
+    function getMax (arr) {
+        var max = 0;
+        arr.map(function(d) {
+            if (d[1] > max) {
+                max = d[1];
+            }
+        });
+        return max;
+    }
+
+    var optionsDaily = {
+        series: {
+//            points: { show: true },
+            bars: {
+                show: true,
+                barWidth: 0.3,
+                align: "left",
+                horizontal: false,
+                label: {
+                    show: true
+                }
+            }
+        },
+        valueLabels: {
+            show: true
+        },
+        grid: {
+            hoverable: true
+        },
+        tooltip: {
+            show: false,
+            content: "%s %y"
+        },
+        xaxis: { zoomRange: [1, (chartDaily.labeluser.length + 1)], panRange: [0, (chartDaily.labeluser.length + 1)], ticks: chartDaily.labeluser },
+        yaxis: { zoomRange: [1, (getMax(chartDaily.rawDataSuccess) + 10)], panRange: [0, (getMax(chartDaily.rawDataSuccess) + 10)] },
+        zoom: {
+            interactive: true
+        },
+        pan: {
+            interactive: true
+        }
+    }; var optionsOverall = {
+        series: {
+//            points: { show: true },
+            bars: {
+                show: true,
+                barWidth: 0.3,
+                align: "left",
+                horizontal: false
+            }
+        },
+        valueLabels: {
+            show: true
+        },
+        grid: {
+            hoverable: true
+        },
+        tooltip: {
+            show: false,
+            content: "%s %y"
+        },
+        xaxis: { zoomRange: [1, (chartOverall.labeluser.length + 1)], panRange: [0, (chartOverall.labeluser.length + 1)], ticks: chartOverall.labeluser },
+        yaxis: { zoomRange: [1, (getMax(chartOverall.rawDataSuccess)+200)], panRange: [0, (getMax(chartOverall.rawDataSuccess) + 200)] },
+        zoom: {
+            interactive: true
+        },
+        pan: {
+            interactive: true
+        }
+    };
+
+    var dataDaily = [chartDaily.rawDataSuccess, chartDaily.rawDataFailed];
+    var dataOverall = [chartOverall.rawDataSuccess, chartOverall.rawDataFailed];
+
+    var p = $.plot(dailyElem, dataDaily, optionsDaily);
+    dailyplots.push(p);
+    var p2 = $.plot(overallElem, dataOverall, optionsOverall)
+    overallplots.push(p2);
+
+    dailyElem.on("plotpan plotzoom", function (event, plot) {
+        $(this).find('.valueLabels').remove();
+        var axes = plot.getAxes();
+        for(var i=0; i< dailyplots.length; i++) {
+            dailyplots[i].getOptions().xaxes[0].min = axes.xaxis.min;
+            dailyplots[i].getOptions().xaxes[0].max = axes.xaxis.max;
+            dailyplots[i].getOptions().yaxes[0].min = axes.yaxis.min;
+            dailyplots[i].getOptions().yaxes[0].max = axes.yaxis.max;
+            dailyplots[i].setupGrid();
+            dailyplots[i].draw();
+        }
+    });
+
+    $(window).on("resize", function (event) {
+        $('.valueLabels').remove();
+
+        var axes = p.getAxes();
+        for(var i=0; i< dailyplots.length; i++) {
+            dailyplots[i].getOptions().xaxes[0].min = axes.xaxis.min;
+            dailyplots[i].getOptions().xaxes[0].max = axes.xaxis.max;
+            dailyplots[i].getOptions().yaxes[0].min = axes.yaxis.min;
+            dailyplots[i].getOptions().yaxes[0].max = axes.yaxis.max;
+            dailyplots[i].setupGrid();
+            dailyplots[i].draw();
+        }
+
+        axes = p2.getAxes();
+        for(i=0; i< overallplots.length; i++) {
+            overallplots[i].getOptions().xaxes[0].min = axes.xaxis.min;
+            overallplots[i].getOptions().xaxes[0].max = axes.xaxis.max;
+            overallplots[i].getOptions().yaxes[0].min = axes.yaxis.min;
+            overallplots[i].getOptions().yaxes[0].max = axes.yaxis.max;
+            overallplots[i].setupGrid();
+            overallplots[i].draw();
+        }
+    });
+
+    overallElem.on("plotpan plotzoom", function (event, plot) {
+        $(this).find('.valueLabels').remove();
+        var axes = plot.getAxes();
+        for(var i=0; i< overallplots.length; i++) {
+            overallplots[i].getOptions().xaxes[0].min = axes.xaxis.min;
+            overallplots[i].getOptions().xaxes[0].max = axes.xaxis.max;
+            overallplots[i].getOptions().yaxes[0].min = axes.yaxis.min;
+            overallplots[i].getOptions().yaxes[0].max = axes.yaxis.max;
+            overallplots[i].setupGrid();
+            overallplots[i].draw();
+        }
+    });
+</script>

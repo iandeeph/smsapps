@@ -6,7 +6,7 @@
         <table class="striped">
             <thead>
             <tr>
-                <th width="7%" data-field="time">Tanggal</th>
+                <th width="10%" data-field="time">Tanggal</th>
                 <th width="7%" data-field="sender">Penerima</th>
                 <th width="10%" data-field="case">Urusan Pelanggan</th>
                 <th width="64%" data-field="message">Pesan</th>
@@ -14,20 +14,20 @@
                 <th data-field="action"></th>
             </tr>
             </thead>
-            <tbody class="font-normal font-17">
+            <tbody class="font-normal">
             {{#each pendings}}
                 <tr>
                     <td class="break-word">
-                        {{SendingDateTime}}
+                        {{date}}
                     </td>
                     <td>
-                        {{DestinationNumber}} - {{customer.name}}
+                        {{nameNumber name number}}
                     </td>
                     <td class="break-word">
-                        {{customer.hal}}
+                        {{hal}}
                     </td>
                     <td class="break-word">
-                        {{TextDecoded}}
+                        {{joinTextOutbox outboxTextDecoded outboxMultiTextDecoded}}
                     </td>
                     <td>
                         {{CreatorID}}
@@ -35,10 +35,8 @@
                     <td class="valign-wrapper">
                         <a class='dropdown-button btn-floating blue' href='#' data-activates='action'><i class="material-icons">menu</i></a>
                         <ul id='action' class='dropdown-content'>
-                            <li><a href="https://crm.zoho.com/crm/GlobalSearch1.do?sModules=AllEntities&searchword={{DestinationNumber}}">CRM</a></li>
-                            <li><a href="https://support.zoho.com/support/cermati/ShowHomePage.do#Cases/search/CurDep/{{DestinationNumber}}">SUPPORT</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#!">Percakapan</a></li>
+                            <li><a href="https://crm.zoho.com/crm/GlobalSearch1.do?sModules=AllEntities&searchword={{number}}">CRM</a></li>
+                            <li><a href="https://support.zoho.com/support/cermati/ShowHomePage.do#Cases/search/CurDep/{{number}}">SUPPORT</a></li>
                         </ul>
                     </td>
                 </tr>
@@ -54,22 +52,26 @@
                         <div class="col s12 mb-20 font-normal font-17">
                             <a class='dropdown-button-right left btn-floating blue' href='#' data-activates='action1'><i class="material-icons">menu</i></a>
                             <div class="collection-content">
-                                <span>{{SendingDateTime}}</span><br>
-                                <span>{{DestinationNumber}} - {{customer.name}}</span><br>
-                                <span>{{customer.hal}}</span>
-                                <div class="divider"></div>
-                                <p>
-                                    {{TextDecoded}}
-                                </p>
-                                <div class="divider"></div>
-                                <span>Pengirim: {{CreatorID}}</span><br>
+                                <div class="col s12">
+                                    <span>{{date}}</span><br>
+                                    <span>{{nameNumber name number}}</span><br>
+                                    <span>{{hal}}</span>
+                                </div>
+                                <div class="col s12">
+                                    <div class="divider"></div>
+                                    <p>
+                                        {{joinTextOutbox outboxTextDecoded outboxMultiTextDecoded}}
+                                    </p>
+                                </div>
+                                <div class="col s12">
+                                    <div class="divider"></div>
+                                    <span>Pengirim: {{CreatorID}}</span><br>
+                                </div>
                             </div>
 
                             <ul id='action1' class='dropdown-content'>
-                                <li><a href="https://crm.zoho.com/crm/GlobalSearch1.do?sModules=AllEntities&searchword={{DestinationNumber}}">CRM</a></li>
-                                <li><a href="https://support.zoho.com/support/cermati/ShowHomePage.do#Cases/search/CurDep/{{DestinationNumber}}">SUPPORT</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#!">Percakapan</a></li>
+                                <li><a href="https://crm.zoho.com/crm/GlobalSearch1.do?sModules=AllEntities&searchword={{number}}">CRM</a></li>
+                                <li><a href="https://support.zoho.com/support/cermati/ShowHomePage.do#Cases/search/CurDep/{{number}}">SUPPORT</a></li>
                             </ul>
                         </div>
                     </div>

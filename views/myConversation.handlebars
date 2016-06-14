@@ -2,12 +2,12 @@
     <div class="col s12 mb-20">
         <span class="left font-40">Percakapan Saya</span>
     </div>
-    <div class="col s12 font-normal font-17">
+    <div class="col s12 font-normal">
         <div class="collection">
             {{#each myConversations}}
                 <a href="/detailconversation/{{number}}" class="collection-item new grey-text">
                     <span class="inline width-300">{{date}}</span>
-                    <span class="inline width-150">{{number}}</span>
+                    <span class="inline width-150"> {{nameNumber name number}}</span>
                     <span class="inline">{{hal}}</span>
                     <span class="new badge">{{TotalSMS}}</span>
                 </a>
